@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MenuResource">
+
+    <resultMap type="MenuResource" id="MenuResourceMap">
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="menuNo" column="menu_no" jdbcType="VARCHAR"/>
+        <result property="menuName" column="menu_name" jdbcType="VARCHAR"/>
+        <result property="menuPath" column="menu_path" jdbcType="VARCHAR"/>
+        <result property="systemNo" column="system_no" jdbcType="VARCHAR"/>
+        <result property="menuLevel" column="menu_level" jdbcType="VARCHAR"/>
+        <result property="parentMenuNo" column="parent_menu_no" jdbcType="VARCHAR"/>
+        <result property="takeEffect" column="take_effect" jdbcType="VARCHAR"/>
+        <result property="deleteSign" column="delete_sign" jdbcType="VARCHAR"/>
+        <result property="createTimestamp" column="create_timestamp" jdbcType="TIMESTAMP"/>
+        <result property="createUserNo" column="create_user_no" jdbcType="VARCHAR"/>
+        <result property="updateTimestamp" column="update_timestamp" jdbcType="TIMESTAMP"/>
+        <result property="updateUserNo" column="update_user_no" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" parameterType="MenuResource" resultMap="MenuResourceMap">
+        select
+          uuid, menu_no, menu_name, menu_path, system_no, menu_level, parent_menu_no, take_effect, delete_sign, create_timestamp, create_user_no, update_timestamp, update_user_no
+        from menu_resource
+        where uuid = #{uuid}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectList" parameterType="MenuResource" resultMap="MenuResourceMap">
+        select
+        uuid, menu_no, menu_name, menu_path, system_no, menu_level, parent_menu_no, take_effect, delete_sign,
+        create_timestamp, create_user_no, update_timestamp, update_user_no
+        from menu_resource
+        <where>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="menuNo != null and menuNo != ''">
+                and menu_no = #{menuNo}
+            </if>
+            <if test="menuName != null and menuName != ''">
+                and menu_name = #{menuName}
+            </if>
+            <if test="menuPath != null and menuPath != ''">
+                and menu_path = #{menuPath}
+            </if>
+            <if test="systemNo != null and systemNo != ''">
+                and system_no = #{systemNo}
+            </if>
+            <if test="menuLevel != null and menuLevel != ''">
+                and menu_level = #{menuLevel}
+            </if>
+            <if test="parentMenuNo != null">
+                and parent_menu_no = #{parentMenuNo}
+            </if>
+            <if test="takeEffect != null and takeEffect != ''">
+                and take_effect = #{takeEffect}
+            </if>
+            <if test="deleteSign != null and deleteSign != ''">
+                and delete_sign = #{deleteSign}
+            </if>
+            <if test="createTimestamp != null">
+                and create_timestamp = #{createTimestamp}
+            </if>
+            <if test="createUserNo != null and createUserNo != ''">
+                and create_user_no = #{createUserNo}
+            </if>
+            <if test="updateTimestamp != null">
+                and update_timestamp = #{updateTimestamp}
+            </if>
+            <if test="updateUserNo != null and updateUserNo != ''">
+                and update_user_no = #{updateUserNo}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="MenuResource">
+        insert into menu_resource(uuid, menu_no, menu_name, menu_path, system_no, menu_level, parent_menu_no, take_effect, delete_sign, create_timestamp, create_user_no, update_timestamp, update_user_no)
+        values (#{uuid}, #{menuNo}, #{menuName}, #{menuPath}, #{systemNo}, #{menuLevel}, #{parentMenuNo}, #{takeEffect}, #{deleteSign}, #{createTimestamp}, #{createUserNo}, #{updateTimestamp}, #{updateUserNo})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="MenuResource">
+        update menu_resource
+        <set>
+            <if test="uuid != null and uuid != ''">
+                uuid = #{uuid},
+            </if>
+            <if test="menuNo != null and menuNo != ''">
+                menu_no = #{menuNo},
+            </if>
+            <if test="menuName != null and menuName != ''">
+                menu_name = #{menuName},
+            </if>
+            <if test="menuPath != null and menuPath != ''">
+                menu_path = #{menuPath},
+            </if>
+            <if test="systemNo != null and systemNo != ''">
+                system_no = #{systemNo},
+            </if>
+            <if test="menuLevel != null and menuLevel != ''">
+                menu_level = #{menuLevel},
+            </if>
+            <if test="parentMenuNo != null and parentMenuNo != ''">
+                parent_menu_no = #{parentMenuNo},
+            </if>
+            <if test="takeEffect != null and takeEffect != ''">
+                take_effect = #{takeEffect},
+            </if>
+            <if test="deleteSign != null and deleteSign != ''">
+                delete_sign = #{deleteSign},
+            </if>
+            <if test="createTimestamp != null">
+                create_timestamp = #{createTimestamp},
+            </if>
+            <if test="createUserNo != null and createUserNo != ''">
+                create_user_no = #{createUserNo},
+            </if>
+            <if test="updateTimestamp != null">
+                update_timestamp = #{updateTimestamp},
+            </if>
+            <if test="updateUserNo != null and updateUserNo != ''">
+                update_user_no = #{updateUserNo},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="MenuResource">
+        delete from menu_resource where uuid = #{uuid}
+    </delete>
+
+</mapper>

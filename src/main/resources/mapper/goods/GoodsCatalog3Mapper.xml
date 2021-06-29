@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GoodsCatalog3">
+
+    <resultMap type="GoodsCatalog3" id="GoodsCatalog3Map">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="catalog2Id" column="catalog2_id" jdbcType="INTEGER"/>
+        <result property="takeEffect" column="take_effect" jdbcType="VARCHAR"/>
+        <result property="deleteSign" column="delete_sign" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" parameterType="GoodsCatalog3" resultMap="GoodsCatalog3Map">
+        select
+          id, name, catalog2_id, take_effect, delete_sign
+        from goods_catalog3
+        where id = #{id}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectList" parameterType="GoodsCatalog3" resultMap="GoodsCatalog3Map">
+        select
+        id, name, catalog2_id, take_effect, delete_sign
+        from goods_catalog3
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="catalog2Id != null">
+                and catalog2_id = #{catalog2Id}
+            </if>
+            <if test="takeEffect != null and takeEffect != ''">
+                and take_effect = #{takeEffect}
+            </if>
+            <if test="deleteSign != null and deleteSign != ''">
+                and delete_sign = #{deleteSign}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="GoodsCatalog3">
+        insert into goods_catalog3(id, name, catalog2_id, take_effect, delete_sign)
+        values (#{id}, #{name}, #{catalog2Id}, #{takeEffect}, #{deleteSign})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="GoodsCatalog3">
+        update goods_catalog3
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="catalog2Id != null">
+                catalog2_id = #{catalog2Id},
+            </if>
+            <if test="takeEffect != null and takeEffect != ''">
+                take_effect = #{takeEffect},
+            </if>
+            <if test="deleteSign != null and deleteSign != ''">
+                delete_sign = #{deleteSign},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="GoodsCatalog3">
+        delete from goods_catalog3 where id = #{id}
+    </delete>
+
+</mapper>

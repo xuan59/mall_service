@@ -1,19 +1,19 @@
 package com.mall.entity.goods;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 
 /**
- * 二级分类(GoodsCatalog2)实体类
+ * 二级分类 实体类
  *
  * @author lx
- * @since 2021-03-23 17:15:18
- */
+ * @date 2021-06-23 20:48:37
+ **/
 public class GoodsCatalog2 implements Serializable {
+
     /**
      * id
      */
-    private BigInteger id;
+    private Long id;
     /**
      * 二级分类名称
      */
@@ -21,14 +21,22 @@ public class GoodsCatalog2 implements Serializable {
     /**
      * 一级分类id
      */
-    private BigInteger catalog1Id;
+    private Long catalog1Id;
+    /**
+     * 生效状态
+     */
+    private String takeEffect;
+    /**
+     * 删除标志
+     */
+    private String deleteSign;
 
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,12 +48,28 @@ public class GoodsCatalog2 implements Serializable {
         this.name = name;
     }
 
-    public BigInteger getCatalog1Id() {
+    public Long getCatalog1Id() {
         return catalog1Id;
     }
 
-    public void setCatalog1Id(BigInteger catalog1Id) {
+    public void setCatalog1Id(Long catalog1Id) {
         this.catalog1Id = catalog1Id;
+    }
+
+    public String getTakeEffect() {
+        return takeEffect;
+    }
+
+    public void setTakeEffect(String takeEffect) {
+        this.takeEffect = takeEffect;
+    }
+
+    public String getDeleteSign() {
+        return deleteSign;
+    }
+
+    public void setDeleteSign(String deleteSign) {
+        this.deleteSign = deleteSign;
     }
 
 }

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GoodsSkuImage">
+
+    <resultMap type="GoodsSkuImage" id="GoodsSkuImageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="skuId" column="sku_id" jdbcType="INTEGER"/>
+        <result property="imgName" column="img_name" jdbcType="VARCHAR"/>
+        <result property="imgUrl" column="img_url" jdbcType="VARCHAR"/>
+        <result property="spuImgId" column="spu_img_id" jdbcType="INTEGER"/>
+        <result property="isDefault" column="is_default" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" parameterType="GoodsSkuImage" resultMap="GoodsSkuImageMap">
+        select
+          id, sku_id, img_name, img_url, spu_img_id, is_default
+        from goods_sku_image
+        where id = #{id}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectList" parameterType="GoodsSkuImage" resultMap="GoodsSkuImageMap">
+        select
+        id, sku_id, img_name, img_url, spu_img_id, is_default
+        from goods_sku_image
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="skuId != null">
+                and sku_id = #{skuId}
+            </if>
+            <if test="imgName != null and imgName != ''">
+                and img_name = #{imgName}
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                and img_url = #{imgUrl}
+            </if>
+            <if test="spuImgId != null">
+                and spu_img_id = #{spuImgId}
+            </if>
+            <if test="isDefault != null">
+                and is_default = #{isDefault}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="GoodsSkuImage">
+        insert into goods_sku_image(id, sku_id, img_name, img_url, spu_img_id, is_default)
+        values (#{id}, #{skuId}, #{imgName}, #{imgUrl}, #{spuImgId}, #{isDefault})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="GoodsSkuImage">
+        update goods_sku_image
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="skuId != null">
+                sku_id = #{skuId},
+            </if>
+            <if test="imgName != null and imgName != ''">
+                img_name = #{imgName},
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                img_url = #{imgUrl},
+            </if>
+            <if test="spuImgId != null">
+                spu_img_id = #{spuImgId},
+            </if>
+            <if test="isDefault != null">
+                is_default = #{isDefault},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="GoodsSkuImage">
+        delete from goods_sku_image where id = #{id}
+    </delete>
+
+</mapper>

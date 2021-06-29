@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GoodsSkuSaleAttributeValue">
+
+    <resultMap type="GoodsSkuSaleAttributeValue" id="GoodsSkuSaleAttributeValueMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="skuId" column="sku_id" jdbcType="INTEGER"/>
+        <result property="saleAttributeId" column="sale_attribute_id" jdbcType="INTEGER"/>
+        <result property="saleAttributeName" column="sale_attribute_name" jdbcType="VARCHAR"/>
+        <result property="saleAttributeValueId" column="sale_attribute_value_id" jdbcType="INTEGER"/>
+        <result property="saleAttributeValueName" column="sale_attribute_value_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" parameterType="GoodsSkuSaleAttributeValue" resultMap="GoodsSkuSaleAttributeValueMap">
+        select
+          id, sku_id, sale_attribute_id, sale_attribute_name, sale_attribute_value_id, sale_attribute_value_name
+        from goods_sku_sale_attribute_value
+        where id = #{id}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectList" parameterType="GoodsSkuSaleAttributeValue" resultMap="GoodsSkuSaleAttributeValueMap">
+        select
+        id, sku_id, sale_attribute_id, sale_attribute_name, sale_attribute_value_id, sale_attribute_value_name
+        from goods_sku_sale_attribute_value
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="skuId != null">
+                and sku_id = #{skuId}
+            </if>
+            <if test="saleAttributeId != null">
+                and sale_attribute_id = #{saleAttributeId}
+            </if>
+            <if test="saleAttributeName != null and saleAttributeName != ''">
+                and sale_attribute_name = #{saleAttributeName}
+            </if>
+            <if test="saleAttributeValueId != null">
+                and sale_attribute_value_id = #{saleAttributeValueId}
+            </if>
+            <if test="saleAttributeValueName != null and saleAttributeValueName != ''">
+                and sale_attribute_value_name = #{saleAttributeValueName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="GoodsSkuSaleAttributeValue">
+        insert into goods_sku_sale_attribute_value(id, sku_id, sale_attribute_id, sale_attribute_name, sale_attribute_value_id, sale_attribute_value_name)
+        values (#{id}, #{skuId}, #{saleAttributeId}, #{saleAttributeName}, #{saleAttributeValueId}, #{saleAttributeValueName})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="GoodsSkuSaleAttributeValue">
+        update goods_sku_sale_attribute_value
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="skuId != null">
+                sku_id = #{skuId},
+            </if>
+            <if test="saleAttributeId != null">
+                sale_attribute_id = #{saleAttributeId},
+            </if>
+            <if test="saleAttributeName != null and saleAttributeName != ''">
+                sale_attribute_name = #{saleAttributeName},
+            </if>
+            <if test="saleAttributeValueId != null">
+                sale_attribute_value_id = #{saleAttributeValueId},
+            </if>
+            <if test="saleAttributeValueName != null and saleAttributeValueName != ''">
+                sale_attribute_value_name = #{saleAttributeValueName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="GoodsSkuSaleAttributeValue">
+        delete from goods_sku_sale_attribute_value where id = #{id}
+    </delete>
+
+</mapper>

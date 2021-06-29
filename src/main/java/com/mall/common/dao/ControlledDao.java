@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @author lx
- * @date 2021-03-24 10:10
+ * @date 2021-06-24 10:10
  * @Deprecated 公共操作数据库接口
  * */
 public interface ControlledDao {
@@ -17,9 +17,9 @@ public interface ControlledDao {
 
     <E> int update(String sqlId, E entity);
 
-    <E> List<E> selectList(String sqlId, Object param);
+    <E> List<E> selectList(String sqlId, E param);
 
-    <E> List<E> selectList(String sqlId, Object param, Integer pageNum, Integer pageSize);
+    <E> List<E> selectList(String sqlId, E param, Integer pageNum, Integer pageSize);
 
     <E> int insertBatch(String sqlId, List<E> list);
 

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GoodsSpuImage">
+
+    <resultMap type="GoodsSpuImage" id="GoodsSpuImageMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="spuId" column="spu_id" jdbcType="INTEGER"/>
+        <result property="imgName" column="img_name" jdbcType="VARCHAR"/>
+        <result property="imgUrl" column="img_url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" parameterType="GoodsSpuImage" resultMap="GoodsSpuImageMap">
+        select
+          id, spu_id, img_name, img_url
+        from goods_spu_image
+        where id = #{id}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectList" parameterType="GoodsSpuImage" resultMap="GoodsSpuImageMap">
+        select
+        id, spu_id, img_name, img_url
+        from goods_spu_image
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="spuId != null">
+                and spu_id = #{spuId}
+            </if>
+            <if test="imgName != null and imgName != ''">
+                and img_name = #{imgName}
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                and img_url = #{imgUrl}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="GoodsSpuImage">
+        insert into goods_spu_image(id, spu_id, img_name, img_url)
+        values (#{id}, #{spuId}, #{imgName}, #{imgUrl})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="GoodsSpuImage">
+        update goods_spu_image
+        <set>
+            <if test="id != null">
+                id = #{id},
+            </if>
+            <if test="spuId != null">
+                spu_id = #{spuId},
+            </if>
+            <if test="imgName != null and imgName != ''">
+                img_name = #{imgName},
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                img_url = #{imgUrl},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="GoodsSpuImage">
+        delete from goods_spu_image where id = #{id}
+    </delete>
+
+</mapper>

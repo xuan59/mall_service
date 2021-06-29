@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AdvertInfo">
+
+    <resultMap type="AdvertInfo" id="AdvertInfoMap">
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="advertType" column="advert_type" jdbcType="VARCHAR"/>
+        <result property="imgUrl" column="img_url" jdbcType="VARCHAR"/>
+        <result property="takeEffect" column="take_effect" jdbcType="VARCHAR"/>
+        <result property="deleteSign" column="delete_sign" jdbcType="VARCHAR"/>
+        <result property="createTimestamp" column="create_timestamp" jdbcType="TIMESTAMP"/>
+        <result property="createUserNo" column="create_user_no" jdbcType="VARCHAR"/>
+        <result property="updateTimestamp" column="update_timestamp" jdbcType="TIMESTAMP"/>
+        <result property="updateUserNo" column="update_user_no" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" parameterType="AdvertInfo" resultMap="AdvertInfoMap">
+        select
+          uuid, advert_type, img_url, take_effect, delete_sign, create_timestamp, create_user_no, update_timestamp, update_user_no
+        from advert_info
+        where uuid = #{uuid}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="selectList" parameterType="AdvertInfo" resultMap="AdvertInfoMap">
+        select
+        uuid, advert_type, img_url, take_effect, delete_sign, create_timestamp, create_user_no, update_timestamp,
+        update_user_no
+        from advert_info
+        <where>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="advertType != null and advertType != ''">
+                and advert_type = #{advertType}
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                and img_url = #{imgUrl}
+            </if>
+            <if test="takeEffect != null and takeEffect != ''">
+                and take_effect = #{takeEffect}
+            </if>
+            <if test="deleteSign != null and deleteSign != ''">
+                and delete_sign = #{deleteSign}
+            </if>
+            <if test="createTimestamp != null">
+                and create_timestamp = #{createTimestamp}
+            </if>
+            <if test="createUserNo != null and createUserNo != ''">
+                and create_user_no = #{createUserNo}
+            </if>
+            <if test="updateTimestamp != null">
+                and update_timestamp = #{updateTimestamp}
+            </if>
+            <if test="updateUserNo != null and updateUserNo != ''">
+                and update_user_no = #{updateUserNo}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" parameterType="AdvertInfo">
+        insert into advert_info(uuid, advert_type, img_url, take_effect, delete_sign, create_timestamp, create_user_no, update_timestamp, update_user_no)
+        values (#{uuid}, #{advertType}, #{imgUrl}, #{takeEffect}, #{deleteSign}, #{createTimestamp}, #{createUserNo}, #{updateTimestamp}, #{updateUserNo})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update" parameterType="AdvertInfo">
+        update advert_info
+        <set>
+            <if test="uuid != null and uuid != ''">
+                uuid = #{uuid},
+            </if>
+            <if test="advertType != null and advertType != ''">
+                advert_type = #{advertType},
+            </if>
+            <if test="imgUrl != null and imgUrl != ''">
+                img_url = #{imgUrl},
+            </if>
+            <if test="takeEffect != null and takeEffect != ''">
+                take_effect = #{takeEffect},
+            </if>
+            <if test="deleteSign != null and deleteSign != ''">
+                delete_sign = #{deleteSign},
+            </if>
+            <if test="createTimestamp != null">
+                create_timestamp = #{createTimestamp},
+            </if>
+            <if test="createUserNo != null and createUserNo != ''">
+                create_user_no = #{createUserNo},
+            </if>
+            <if test="updateTimestamp != null">
+                update_timestamp = #{updateTimestamp},
+            </if>
+            <if test="updateUserNo != null and updateUserNo != ''">
+                update_user_no = #{updateUserNo},
+            </if>
+        </set>
+        where uuid = #{uuid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById" parameterType="AdvertInfo">
+        delete from advert_info where uuid = #{uuid}
+    </delete>
+
+</mapper>
